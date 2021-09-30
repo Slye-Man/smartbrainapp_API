@@ -1,6 +1,17 @@
 const express = require('express');
 const bcrypt = require('bcrypt-nodejs');
 const cors = require('cors');
+const knex = require('knex')
+
+const db = knex({
+   client: 'pg',
+   connection: {
+      host: '127.0.0.1',
+      user: 'postgres',
+      password: '',
+      database: 'smart-brain-database',
+   }
+});
 
 const app = express();
 
@@ -9,7 +20,7 @@ const database = {
       {
          id: '123',
          name: 'John',
-         email: 'john@email.com',
+         email: 'john@gmail.com',
          password: 'cookies',
          entries: 0,
          joined: new Date()
@@ -17,7 +28,7 @@ const database = {
       {
          id: '124',
          name: 'Sally',
-         email: 'sally@email.com',
+         email: 'sally@gmail.com',
          password: 'bananas',
          entries: 0,
          joined: new Date()
@@ -50,14 +61,11 @@ app.post('/signin', (req, res) => {
 
 app.post('/register', (req, res) => {
    const { email, name, password } = req.body;
-   database.users.push({
-      id: '125',
-       name: name,
-       email: email,
-       password: password,
-       entries: 0,
-       joined: new Date()
-   })
+   db('users').insert({
+      email: email,
+      name: name,
+      joined: new Date(),
+   }).then(console.log)
    res.json(database.users[database.users.length-1]);
 })
 
@@ -75,7 +83,7 @@ app.get('/profile/:id', (req, res) => {
    }
 });
 
-app.post('/image', (req, res) => {
+app.put('/image', (req, res) => {
     const { id } = req.body;
    let found = false;
    database.users.forEach(user => {
