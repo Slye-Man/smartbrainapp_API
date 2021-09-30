@@ -12,7 +12,8 @@
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.18.2",
     "cors": "^2.8.5",
-    "express": "^4.16.2"
+    "express": "^4.16.2",
+    "knex": "^0.95.11"
   },
   "devDependencies": {
     "nodemon": "^2.0.13"

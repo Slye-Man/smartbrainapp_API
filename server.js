@@ -9,7 +9,7 @@ const database = {
       {
          id: '123',
          name: 'John',
-         email: 'john@email.com',
+         email: 'john@gmail.com',
          password: 'cookies',
          entries: 0,
          joined: new Date()
@@ -17,7 +17,7 @@ const database = {
       {
          id: '124',
          name: 'Sally',
-         email: 'sally@email.com',
+         email: 'sally@gmail.com',
          password: 'bananas',
          entries: 0,
          joined: new Date()
@@ -54,7 +54,6 @@ app.post('/register', (req, res) => {
       id: '125',
        name: name,
        email: email,
-       password: password,
        entries: 0,
        joined: new Date()
    })
@@ -75,7 +74,7 @@ app.get('/profile/:id', (req, res) => {
    }
 });
 
-app.post('/image', (req, res) => {
+app.put('/image', (req, res) => {
     const { id } = req.body;
    let found = false;
    database.users.forEach(user => {
